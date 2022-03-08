@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+    <script type="text/babel">
+        // const page = React.createElement(
+        //     React.Fragment, 
+        //     null,
+        //     React.createElement("h1", null, "Heading 1"),
+        //     React.createElement("h2", null, "Heading 2"))
+
+
+        // const page = (
+        //     <React.Fragment>
+        //         <h1>Heading 1</h1>
+        //         <h2>Heading 2</h2>
+        //     </React.Fragment>
+        // )
+
+        // function/class component
+
+        // const page = <div className="container">
+        //                 <div className="header">Header</div>
+        //                 <div className="content">Content</div>
+        //                 <div className="footer">Footer</div>
+        //             </div>
+
+        // function component
+        // function Header(props){
+        //     console.log(props)
+        //     return (
+        //         <div id={props.id} className={props.className}>Header</div>
+        //     )
+        // }
+        function Header({ id, className }) {
+            return (
+                <div id={id} className={className}>Header</div>
+            )
+        }
+
+
+        class Content extends React.Component {
+            render() {
+                return (
+                    <div className="content">Content</div>
+                )
+            }
+        }
+
+        function Footer() {
+            return (
+                <div className="footer">Footer</div>
+            )
+        }
+        // const page = React.createElement("div", {className: "container"},
+        //             React.createElement(Header, null, null),
+        //             <Content/>,
+        //             <Footer/>)
+
+        // const page = (
+        //     <div>
+        //         <Header 
+        //             className="header"
+        //             id ="headingId"
+        //         />
+        //         <Content/>
+        //         <Footer/>
+        //     </div>
+        // )
+
+        const posts = [
+            {
+                id: 1,
+                image : "https://i.pravatar.cc/150?img=10",
+                title : "Title 1",
+                desc : "Description 1",
+                published : "10/10/2000"
+            },
+            {
+                id: 2,
+                image : "https://i.pravatar.cc/150?img=12",
+                title : "Title 2",
+                desc : "Description 2",
+                published : "10/10/2002"
+            },
+            {
+                id: 3,
+                image : "https://i.pravatar.cc/150?img=13",
+                title : "Title 3",
+                desc : "Description 3",
+                published : "10/10/2003"
+            },
+            {
+                id: 4,
+                image : "https://i.pravatar.cc/150?img=14",
+                title : "Title 4",
+                desc : "Description 4",
+                published : "10/10/2004"
+            },
+        ]
+
+        function PostItem({ post, onClick }) {
+            return (
+                <div className="post-item">
+                    <img src={post.image} alt={post.title} />
+                    <h2 className="post-title">{post.title}</h2>
+                    <p className="post-desc">{post.desc}</p>
+                    <p className="post-published">{post.published}</p>
+                    <button onClick = {() => onClick(Math.random())}>Click</button>
+                </div>
+            )
+        }
+        function handleClick(value){
+            return console.log("Random: ", value);
+        }
+        const page = (
+            <div className="wrapper">
+               {
+                   posts.map(post => (
+                        <PostItem
+                            key = {post.id}
+                            // image={post.image}
+                            // title={post.title}
+                            // desc={post.desc}
+                            // published={post.published}
+                            post = {post}
+                            onClick = {handleClick}
+                        />
+                   ))
+               }
+            </div>
+        )
+        ReactDOM.render(page, document.getElementById("root"));
+    </script>
+</body>
+
+</html>

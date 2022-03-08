@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function Header({ className }) {
+            return (
+                <div className={className}>Header</div>
+            )
+        }
+        function Content() {
+            return (
+                <div className="contnet">Content</div>
+            )
+        }
+        function Footer() {
+            return (
+                <div className="footer">Footer</div>
+            )
+        }
+
+        // const page = React.createElement(React.Fragment, null,
+        //                             <Header className="header"/>,
+        //                             <Content/>,
+        //                             <Footer/>)
+
+        // const page = (
+        //     <React.Fragment>
+        //         <Header className="header"/>
+        //         <Content/>
+        //         <Footer/>
+        //     </React.Fragment>
+        // )
+
+        const posts = [
+            {
+                id: 1,
+                image: "https://i.pravatar.cc/150?img=50",
+                title: "Title 1",
+                published: "10/10/2001"
+            },
+            {
+                id: 2,
+                image: "https://i.pravatar.cc/150?img=52",
+                title: "Title 2",
+                published: "10/10/2002"
+            },
+            {
+                id: 3,
+                image: "https://i.pravatar.cc/150?img=53",
+                title: "Title 3",
+                published: "10/10/2003"
+            },
+            {
+                id: 4,
+                image: "https://i.pravatar.cc/150?img=54",
+                title: "Title 4",
+                published: "10/10/2004"
+            },
+        ]
+
+        function PostItem({ post, onClick }) {
+
+            return (
+                <div className="posts-item">
+                    <img src={post.image} />
+                    <h2 className="post-title" onClick={() => onClick(post.title)}>{post.title}</h2>
+                    <p className="post-desc">{post.desc}</p>
+                    <p className="post-published">{post.published}</p>
+
+                </div>
+            )
+        }
+        // <button onClick={() => onClick(Math.random())}>Add to Cart</button>
+
+        // function handleOnClick(random){
+        //     console.log("Random: ", random)
+        // }
+
+        function App() {
+            const handleOnClick = (title) => {
+                console.log("title: " + title)
+            }
+            return (<div>
+                {
+                    posts.map((post, index) =>
+                        <PostItem
+                            key={index}
+                            post={post}
+                            onClick={handleOnClick}
+                        />
+                    )
+                }
+            </div>)
+        }
+
+
+
+        ReactDOM.render(<App/>, document.getElementById("root"))
+    </script>
+</body>
+
+</html>

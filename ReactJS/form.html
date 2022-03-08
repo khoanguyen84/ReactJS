@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        
+        function Input({label, ...props}){
+            return (
+                <div>
+                    <label>{label}</label>
+                    <input {...props} />
+                </div>
+            )
+        }
+
+        function Button({ href, onClick, children }){
+            let Component = 'button'
+            const props = {}
+            if(href){
+                Component = "a"
+                props.href = href
+            }
+            if(onClick){
+                props.onClick = onClick
+            }
+            return (
+                <Component {... props}>{children}</Component>
+            )
+            // if(href != null || href != ''){
+            //     if(typeof onClick == 'function'){
+            //         return <a onClick = { () => { onclick() }} href={href}>{title}</a>
+            //     }
+            //     return (
+            //         <a href={href}>{title}</a>
+            //     )
+            // }
+            // if(typeof onClick == 'function'){
+            //     return (
+            //         <button onClick = { () => {onClick()}}> {title}</button>
+            //     )
+            // }
+        }
+
+        function List({ data }){
+            return (
+                <ul>
+                    {
+                        data.map(item => (
+                            <li key={item}>{item}</li>
+                        ))
+                    }
+                </ul>
+            )
+        }
+
+        function List2({data, children}){
+            return (
+                <ul>
+                    {
+                        data.map(item => children(item))
+                    }
+                </ul>
+            )
+        }
+
+        function App(){
+            const courses = ["Javascript" , "PHP", "Java"]
+            return (
+                <div>
+                    <Button 
+                        onClick = { () => { console.log(Math.random()) } }
+                        // href = "http://127.0.0.1:5500/site.html"
+                    >
+                        Click me!
+                    </Button>
+                    <Input
+                        label ="Fullname"
+                        type = "text"
+                        placeholder = "Enter your name...."
+                        name = "Fullname"
+                        onFocus = {() => {console.log(Math.random())}}
+                        onBlur = { () => {console.log('lost focus')}}
+                    />
+                    <List
+                        data = { courses }
+                    />
+                    <List2 data={courses}> 
+                        { (item) => <li key={item}>{item}</li>}
+                    </List2>
+                </div>
+                
+            )
+        }
+
+        ReactDOM.render(<App />, document.getElementById("root"))
+    </script>
+</body>
+
+</html>
